@@ -11,28 +11,30 @@ vector<long> powers; int size1=0;
 void findPowers()
 {
     long i = 2;
-    for (int j = 1; j <= 63; j++)
+    for (int j = 1; j <= 62; j++)
     {
         powers.push_back(i);
         i = i * 2;
     }
     size1=powers.size();
+    cout << size1 << endl;
 }
 
 string counterGame(long n) 
 {   
+    cout << n << endl;
     int res = 1;
 
     while(n > 1)
     {
-        int flag;
-        int max=size1-2;
-        
-        for (int i = max; i > 0; i--)
-        {
+        long flag = 0;
+        int max=size1-1;
+        for (int i = max; i >= 0; i--)
+        {   
             if(n == powers[i])
             {
                 flag = 1;
+                max=i-1;
                 break;
             }
             if(powers[i]<n)
@@ -42,9 +44,8 @@ string counterGame(long n)
                 break;
             }
         }
-
         if(flag==1)
-            n /= 2;
+            n/=2;
         else
             n -= flag;
         res++;
