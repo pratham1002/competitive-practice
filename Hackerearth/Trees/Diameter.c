@@ -38,9 +38,6 @@ int tree_height(NODE *root)
     if (root == NULL)
         return 0;
 
-    if (root->left == NULL && root->right == NULL)
-        return 1;
-
     int lh = tree_height(root->left);
     int rh = tree_height(root->right);
 
