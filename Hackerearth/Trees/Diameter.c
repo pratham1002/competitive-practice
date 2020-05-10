@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// node structure
 typedef struct node
 {
     int data;
@@ -8,6 +9,7 @@ typedef struct node
     struct node * right;
 } NODE;
 
+// createes a new node returns a pointer to the node
 NODE * newNode(int data)
 {
     NODE *node = (struct node *)malloc(sizeof(struct node));
@@ -18,6 +20,7 @@ NODE * newNode(int data)
     return(node); 
 }
 
+// in-order traversal of the tree by recursive method
 void traverse(NODE *root)
 {
     if(root->left!=NULL)
@@ -29,18 +32,32 @@ void traverse(NODE *root)
         traverse(root->right);
 }
 
+// function to return maximum height of a tree
+int tree_height(NODE *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 1;
+
+    int lh = tree_height(root->left);
+    int rh = tree_height(root->right);
+
+    return ((lh > rh) ? (lh + 1) : (rh + 1));
+}
+
 int main()
 {
-    int t,root_data;
+    int t, root_data;
 
+    // input root data value and number of nodes 
     scanf("%d %d\n", &t, &root_data);
 
     NODE *root = newNode(root_data);
 
-    printf("%d\n", root->data);
-
     // input tree
-    for(int i = 0; i < t; i++)
+    for(int i = 0; i < t-1; i++)
     {
         NODE *current = root;
         char str[20];
@@ -78,7 +95,17 @@ int main()
         }
     }
 
+    // print in-order traversal of the tree
+
+    printf("in-order traversal: \n");
+
     traverse(root);
+
+    printf("\n");
+
+    int max_height = tree_height(root);
+
+    printf("%d\n", max_height);
 
     return 0;
 }
