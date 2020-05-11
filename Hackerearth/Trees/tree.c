@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // node structure
 typedef struct node
@@ -32,7 +33,7 @@ void traverse(NODE *root)
         traverse(root->right);
 }
 
-// function to return maximum height of a tree
+// maximum height of a tree
 int tree_height(NODE *root)
 {
     if (root == NULL)
@@ -42,6 +43,21 @@ int tree_height(NODE *root)
     int rh = tree_height(root->right);
 
     return ((lh > rh) ? (lh + 1) : (rh + 1));
+}
+
+/* check if tree is height balanced.
+a binary tree in which the left and right subtrees of every node differ in height by no more than 1. */
+bool isBalanced(NODE *root)
+{
+    if(root==NULL)
+        return true;
+    int lh = tree_height(root->left);
+    int rh = tree_height(root->right);
+
+    if (abs(lh - rh) <= 1 && isBalanced(root->left) && isBalanced(root->right))
+        return true;
+
+    return false;
 }
 
 int main()
@@ -103,6 +119,8 @@ int main()
     int max_height = tree_height(root);
 
     printf("%d\n", max_height);
+
+    printf("%d\n", isBalanced(root));
 
     return 0;
 }
