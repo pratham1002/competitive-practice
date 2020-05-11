@@ -1,3 +1,5 @@
+// http://codeforces.com/contest/1352/problem/E
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -7,6 +9,9 @@ vector<int> arr;
 int checkSpecial(int num)
 {
     //cout << "num = " << num << endl;
+    if (arr.size() == 0)
+        return 0;
+
     int fp = 0;
     int k = 0;
     int sum = arr[fp];
@@ -14,7 +19,7 @@ int checkSpecial(int num)
     {
         //cout << "sum = " << sum << endl;
         sum += arr[i];
-        if(sum>num)
+        while (sum > num)
         {
             sum = sum - arr[fp];
             fp += 1;
