@@ -60,6 +60,27 @@ bool isBalanced(NODE *root)
     return false;
 }
 
+// maximum of two integers
+int max(int a, int b)
+{
+    return (a > b ? a : b);
+}
+
+// maximum diameter of the tree
+int tree_diameter(NODE *root)
+{
+    if (root == NULL)
+        return 0;
+    
+    int lh = tree_height(root->left);
+    int rh = tree_height(root->right);
+
+    int ldiameter = tree_diameter(root->left);
+    int rdiameter = tree_diameter(root->right);
+
+    return (max(lh + rh + 1, max(ldiameter, rdiameter)));
+}
+
 int main()
 {
     int t, root_data;
