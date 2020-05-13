@@ -10,17 +10,14 @@ typedef struct node
     struct node * right;
 } NODE;
 
-// createes a new node returns a pointer to the node
+// creates a new node returns a pointer to the node
 NODE * newNode(int data)
 {
-    // printf("NewNode called\n");
-
     NODE *node = (struct node *)malloc(sizeof(struct node));
     node->data = data;
     node->left = NULL; 
     node->right = NULL;
 
-    // printf("NewNode created\n");
     return (node);
 }
 

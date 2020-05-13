@@ -45,7 +45,7 @@ int main()
         int min = i;
         for (int j = i + 1; j < 7; j++)
         {
-            if(arr[j] < min)
+            if(arr[j] < arr[min])
                 min = j;
         }
 
