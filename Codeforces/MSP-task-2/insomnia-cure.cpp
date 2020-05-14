@@ -6,18 +6,24 @@ using namespace std;
 
 int lcm(int a, int b)
 {
-    int lcm;
+    int lcm, increment;
     if (a > b)
-        lcm = a;
+    {
+        lcm = a; 
+        increment = a;
+    }
     else
+    {
         lcm = b;
+        increment = b;
+    }
     while (1)
     {
         if (lcm % a == 0 && lcm % b == 0)
         {
             break;
         }
-        lcm++;
+        lcm+=increment;
     }
 
     return lcm;
