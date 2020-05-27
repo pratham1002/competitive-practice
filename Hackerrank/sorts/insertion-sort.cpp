@@ -4,24 +4,19 @@ using namespace std;
 
 vector<int> insertionSort(vector<int> arr) 
 {
-    int n = arr.size();
-    int i, j, val;
-    for (i = 1; i < n; i++) {
-        val = arr[i];
-
-        for (j = i - 1; j >= 0; j--)
+    int i,j;
+    int value;
+    for (i = 1; i < arr.size(); i++)
+    {
+        value = arr[i];
+        j = i - 1;
+        while (j >= 0 && value < arr[j])
         {
-            if (arr[i] >= arr[j]) {
-                break;
-            }
-            else {
-                arr[j + 1] = arr[j];
-            }
+            arr[j + 1] = arr[j];
+            j -= 1;
         }
-        
-        arr[j + 1] = val;
+        arr[j + 1] = value;
     }
-
     return arr;
 }
 
