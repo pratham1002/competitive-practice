@@ -21,37 +21,22 @@ int main() {
             haystack.erase(find(haystack.begin(), haystack.end(), needle[i]));
         }
 
-        // default case: insert at upper bound
-        bool insert_at_upper = true;
+        vector<string> inserts(haystack.length() + 1);
 
-        // find the first character not equal to haystack.front()
-        for (int i = 0; i < needle.length(); i++) { 
-            if (needle[i] == needle[0]) { 
-                continue;
-            } else if (needle[i] > needle[0]) { 
-                insert_at_upper = true;
-            } else { 
-                insert_at_upper = false;
-            }
+        // insert at all locations in the haystack 
+        for (int i = 0; i < haystack.length(); i++) {
+            string temp = haystack;
+            inserts[i] = temp.insert(i, needle);
         }
 
-        if (insert_at_upper) { 
-            // insert the needle at the last occurance of the starting character 
-            // if the first character not equal haystack.front() is greater than haystack.front()
+        string temp = haystack;
+        inserts[haystack.length()] = temp.append(needle);
 
-            int upper = upper_bound(haystack.begin(), haystack.end(), needle.front()) - haystack.begin();
+        // sort the inserts in lexographical order
+        sort(inserts.begin(), inserts.end());
 
-            haystack.insert(upper, needle);
-        } else { 
-            // insert the needle at the first occurance of the starting character 
-            // if the first character not equal haystack.front() is smaller than haystack.front()
-
-            int lower = lower_bound(haystack.begin(), haystack.end(), needle.front()) - haystack.begin();
-
-            haystack.insert(lower, needle);
-        }
-
-        cout << haystack << endl;
+        // find the minimum
+        cout << inserts.front() << endl;
     }
 
     return 0;
