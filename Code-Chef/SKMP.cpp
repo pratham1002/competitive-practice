@@ -10,33 +10,44 @@ int main() {
 
     while (T--) {
         string haystack, needle;
-        cin >> haystack;
-        cin >> needle;
+        cin >> haystack; // size = m
+        cin >> needle; // size = n
 
         // lexographically sort the haystack
-        sort(haystack.begin(), haystack.end());
+        sort(haystack.begin(), haystack.end()); // O(m log m)
 
-        // delete the characters in the needle from the haystack
-        for (int i = 0; i < needle.length(); i++) {
-            haystack.erase(find(haystack.begin(), haystack.end(), needle[i]));
+        // create a hash map for the haystack
+        vector<int> hash_haystack(26, 0); 
+        for (int i = 0; i < haystack.length(); i++) { // O(m)
+            hash_haystack[haystack[i] - 'a'] += 1;
         }
 
-        vector<string> inserts(haystack.length() + 1);
-
-        // insert at all locations in the haystack 
-        for (int i = 0; i < haystack.length(); i++) {
-            string temp = haystack;
-            inserts[i] = temp.insert(i, needle);
+        // create a hash map for the needle
+        vector<int> hash_needle(26, 0);
+        for (int i = 0; i < needle.length(); i++) { // O(n)
+            hash_needle[needle[i] - 'a'] += 1;
         }
 
+        // sort the haystack as a counting sort after removing the letters of the needle
+        haystack = "";
+        for (int i = 0; i < 26; i++) { 
+            haystack.append(hash_haystack[i] - hash_needle[i], 'a' + i); // O(m)
+        }
+
+        // initialise vector to store all inserts
+        vector<string> inserts(2);
+
+        // insert at the upperbound
+        int upper = upper_bound(haystack.begin(), haystack.end(), needle.front()) - haystack.begin();
         string temp = haystack;
-        inserts[haystack.length()] = temp.append(needle);
+        inserts[0] = temp.insert(upper, needle);
 
-        // sort the inserts in lexographical order
-        sort(inserts.begin(), inserts.end());
+        int lower = lower_bound(haystack.begin(), haystack.end(), needle.front()) - haystack.begin();
+        temp = haystack;
+        inserts[1] = temp.insert(lower, needle);
 
-        // find the minimum
-        cout << inserts.front() << endl;
+        // print the minimum 
+        cout << *(min_element(inserts.begin(), inserts.end())) << endl;
     }
 
     return 0;
