@@ -1,39 +1,26 @@
 #include <bits/stdc++.h>
-#define NIL -999999
 
 using namespace std;
 
-// recursive solution
-int cost (int n, int h[], vector<int> &mem) {
-    if (mem[n] == NIL) {
-        if (n == 1)
-        {
-            mem[n] = 0;
-        }
-        else if (n == 2) 
-        {
-            mem[n] = std::abs(h[1] - h[2]);
-        }
-        else 
-        {
-            mem[n] = std::min(cost(n - 2, h, mem) + std::abs(h[n] - h[n - 2]), cost(n - 1, h, mem) + std::abs(h[n] - h[n - 1]));
-        }
-    }
-    return mem[n];
-}
-
 int main() {
-    int N;
-    cin >> N;
+    int n;
+    cin >> n;
 
-    int heights[N + 1];
-    vector<int> mem(N + 1, NIL);
+    int h[n + 1];
+    vector<int> mem(n + 1);
 
-    for (int i = 1; i <= N; i++) {
-        cin >> heights[i];
+    for (int i = 1; i <= n; i++) {
+        cin >> h[i];
     }
 
-    cout << cost(N, heights, mem) << endl;
+    mem[1] = 0;
+    mem[2] = std::abs(h[1] - h[2]);
+
+    for (int i = 3; i <= n; i++) {
+        mem[i] = std::min(mem[i-2] + std::abs(h[i] - h[i - 2]), mem[i - 1] + std::abs(h[i] - h[i - 1]));
+    }
+
+    cout << mem[n] << endl;
 
     return 0;
 }

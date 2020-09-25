@@ -1,42 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// recursive solution
-long long cost (long long n, long long k, long long h[], vector<long long> &mem) {
-    if (mem[n] == LLONG_MAX) {
-        if (n <= 1)
-        {
-            mem[n] = 0;
-        }
-        else 
-        {
-            vector<long long> costs(k+1, LLONG_MAX);
+int main() {
+    long long n, k;
+    cin >> n >> k;
 
-            for (int i = 1; i <= k; i++) {
-                if (n - i <= 0) {
+    long long h[n + 1];
+    vector<long long> mem(n + 1, LLONG_MAX);
+
+    for (int i = 1; i <= n; i++) {
+        cin >> h[i];
+    }
+
+    mem[1] = 0;
+
+    for (int i = 2; i <= n; i++) {
+        vector<long long> costs(k+1, LLONG_MAX);
+
+            for (int j = 1; j <= k; j++) {
+                if (i - j <= 0) {
                     break;
                 }
-                costs[i] = cost(n - i, k, h, mem) + std::abs(h[n] - h[n - i]);
+                costs[j] = mem[i - j] + std::abs(h[i] - h[i - j]);
             }
 
-            mem[n] = *(std::min_element(costs.begin(), costs.end()));
-        }
-    }
-    return mem[n];
-}
-
-int main() {
-    long long N, K;
-    cin >> N >> K;
-
-    long long heights[N + 1];
-    vector<long long> mem(N + 1, LLONG_MAX);
-
-    for (int i = 1; i <= N; i++) {
-        cin >> heights[i];
+            mem[i] = *(std::min_element(costs.begin(), costs.end()));
     }
 
-    cout << cost(N, K, heights, mem) << endl;
+    cout << mem[n] << endl;
 
     return 0;
 }
