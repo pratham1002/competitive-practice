@@ -81,8 +81,8 @@ void Graph::DFS(int at, vector<bool> visited) {
     cout << at << " ";
     list<int> neighbours = (this->adj)[at];
 
-    for (auto it = neighbours.begin(); it != neighbours.end(); it++) {
-        DFS(*it, visited);
+    for (int i: neighbours) {
+        DFS(i, visited);
     }
 }
 

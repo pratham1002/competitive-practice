@@ -84,9 +84,9 @@ void Graph::DFS(int at, vector<bool> &visited, int &count) {
 
     list<int> neighbours = (this->adj)[at];
 
-    for (auto it = neighbours.begin(); it != neighbours.end(); it++) {
-        if (!visited[*it]) {
-            DFS(*it, visited, count);
+    for (int i: neighbours) {
+        if (!visited[i]) {
+            DFS(i, visited, count);
         }
     }
 }
