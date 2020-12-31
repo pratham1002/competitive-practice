@@ -86,7 +86,7 @@ void Graph::DFS(int at, vector<bool> visited) {
     }
 }
 
-main()
+int main()
 {
     // Create a graph given in the above diagram
     Graph g(4);
