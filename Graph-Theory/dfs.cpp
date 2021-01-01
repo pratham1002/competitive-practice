@@ -33,7 +33,7 @@
  * Pseudo code
  *  # Global or class scope variables
  *  n = number of node in the graph
- *  graph = ajacency list representing graph
+ *  g = ajacency list representing graph
  *  visited = [false, ..., false]   # size n
  * 
  *  function dfs(at):
