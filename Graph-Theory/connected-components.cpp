@@ -62,6 +62,7 @@ Graph::Graph(int n) {
 
 void Graph::addEdge(int x, int y) {
     (this->adj)[x].push_back(y);
+    (this->adj)[y].push_back(x);
 }
 
 int Graph::findComponents() {
