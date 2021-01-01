@@ -27,12 +27,12 @@ void DFS(const int n, const int m, const int i, const int j, vector<vector<bool>
         DFS(n, m, i + 1, j, visited, building);
     }
 
-    // right
+    // left
     if (j > 0 && building[i ][j - 1] == '.'  && !visited[i][j - 1]) {
         DFS(n, m, i, j - 1, visited, building);
     }
 
-    // left
+    // right
     if (j < m - 1 && building[i][j + 1] == '.' && !visited[i][j + 1]) {
         DFS(n, m, i, j + 1, visited, building);
     }
