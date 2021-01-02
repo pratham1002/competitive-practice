@@ -26,7 +26,7 @@ class Graph {
         vector<int> DFS();
 
     private:
-        void exploreNeighbors(int at, vector<bool> &visited, vector<int> &teams);
+        void exploreNeighbors(int at, vector<int> &teams);
 };
 
 Graph::Graph(int n) {
@@ -41,33 +41,30 @@ void Graph::addEdge(int x, int y) {
 
 // TODO: should not stop after first connected component
 vector<int> Graph::DFS() {
-    vector<bool> visited(this->n, false);
     vector<int> teams(this->n, 0);
 
     for (int i = 0; i < this->n; i++) {
-        if (!visited[i]) {
+        if (!teams[i]) {
             teams[i] = 1;
-            exploreNeighbors(i, visited, teams);
+            exploreNeighbors(i, teams);
         }
     }
 
     return teams;
 }
 
-void Graph::exploreNeighbors(int at, vector<bool> &visited, vector<int> &teams) {
+void Graph::exploreNeighbors(int at, vector<int> &teams) {
     list<int> neighbours = this->adj[at];
 
     for (int i: neighbours) {
-        if (!visited[i])
+        if (!teams[i])
         {
-            visited[i] = true;
-
             if (teams[at] == 1) {
                 teams[i] = 2;
             } else {
                 teams[i] = 1;
             }
-            exploreNeighbors(i, visited, teams);
+            exploreNeighbors(i, teams);
         }
         else
         {
