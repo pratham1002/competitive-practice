@@ -4,7 +4,7 @@
  * in such a way that no two pupils in a team are friends. 
  * You can freely choose the sizes of the teams.
  * 
- * Algorithm used: Greedy Graph Coloring
+ * Algorithm used: DFS (greedy graph coloring)
  */
 
 #include <bits/stdc++.h>
