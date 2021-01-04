@@ -1,38 +1,37 @@
 #include <bits/stdc++.h>
  
 using namespace std;
- 
-long long knapsack(int n, int w, long long items[][2], vector<vector<long long>> &mem) {
-    if (mem[n][w] == 0) {
-        if (n == 0 || w == 0) {
-            mem[n][w] = 0;
-        }
-        else {
-            int current_item_weight = items[n][0];
-            if (current_item_weight > w) {
-                mem[n][w] = knapsack(n - 1, w, items, mem);
-            }
-            else {
-                mem[n][w] = std::max(knapsack(n - 1, w, items, mem), items[n][1] + knapsack(n - 1, w - items[n][0], items, mem));
-            }
-        }
-    }
-    return mem[n][w];
-}
- 
+
+typedef long long ll;
+
 int main() {
   	int n, w;
   	std::cin >> n >> w;
+
+    ll val[n];
+    ll wt[n];
  
-    long long items[n+1][2];
- 
-    vector<vector<long long>> mem(n + 1, vector<long long>(w + 1, 0));
- 
-    for (int i = 1; i <= n; i++) {
-        std::cin >> items[i][0] >> items[i][1];
+    for (int i = 0; i < n; i++) {
+        cin >> wt[i] >> val[i];
     }
- 
-    std::cout << knapsack(n, w, items, mem) << endl;
+
+    ll K[n + 1][w + 1];
+
+    // Build table K[][] in bottom up manner 
+    for (int i = 0; i <= n; i++)  
+    { 
+        for (int j = 0; j <= w; j++)  
+        { 
+            if (i == 0 || j == 0) 
+                K[i][j] = 0; 
+            else if (wt[i - 1] <= j) 
+                K[i][j] = max(val[i - 1] + K[i - 1][j - wt[i - 1]], K[i - 1][j]); 
+            else
+                K[i][j] = K[i - 1][j];
+        }
+    }
+
+    std::cout << K[n][w] << endl;
  
     return 0;
 }
